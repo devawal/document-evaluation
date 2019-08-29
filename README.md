@@ -4,19 +4,21 @@ A [Docker](https://www.docker.com/) based [Symfony 3.4 (LTS)](https://symfony.co
 
 ## Environment setup
 
-First I download the symfony 3.4 LTS version using composer command and then I configure docker file for the container
+First clone this repository by using `git clone https://github.com/devawal/document-evaluation.git`
+And run `composer install`
 
 ## Docker command
 
 1. Docker environment `PHP 7.2` and `NGINX 1.15`
-1. Run `docker-compose up -d` to install all the dependency and then run `docker-compose up` command to start the container
-2. Console command for docker container `docker-compose exec -T app php bin/console identification-requests:process input.csv`
-3. Run `docker-compose run --rm app chown -R $(id -u):$(id -g) .` command for setting up permission
+2. Run `docker-compose up -d` to install all the dependency and then run `docker-compose up` command to start the container
+3. Console command for docker container `docker-compose exec -T app php bin/console identification-requests:process input.csv`
+4. Unit test for docker container `docker-compose exec -T app ./vendor/bin/phpunit`
+5. Run `docker-compose run --rm app chown -R $(id -u):$(id -g) .` command for setting up permission
 
 
 ## Third party dependencies
 
-Only PHP Unit used for unit testing. For temporary data store I used symfony `session`
+Only PHP Unit is used for unit testing. For temporary data store I used symfony `cache`
 
 # Document evaluation
 
@@ -48,6 +50,30 @@ document_issue_date_invalid
 
 # Testing
 
-The application is tested with different data set. For Unit test following is the command `.\vendor\bin\phpunit`
+The application is tested with different data set. For Unit test following is the command `./vendor/bin/phpunit`
 
-There is an issue in Unit test related to session, I am currently working on to fixed it
+Test class `Tests\AppBundle\CommandDocumentCommandTest`
+
+# Test output from windows
+```
+$ ./vendor/bin/phpunit
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+..                                                                  2 / 2 (100%)
+
+Time: 284 ms, Memory: 12.00MB
+
+OK (2 tests, 3 assertions)
+```
+
+# Test output from docker container
+```
+$ docker-compose exec -T app ./vendor/bin/phpunit
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+..                                                                  2 / 2 (100%)
+
+Time: 1.36 seconds, Memory: 16.00MB
+
+OK (2 tests, 3 assertions)
+```
