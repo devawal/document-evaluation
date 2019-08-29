@@ -54,7 +54,7 @@ The application is tested with different data set. For Unit test following is th
 
 Test class `Tests\AppBundle\CommandDocumentCommandTest`
 
-# Test output from windows
+## Test output from windows
 ```
 $ ./vendor/bin/phpunit
 PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
@@ -66,7 +66,7 @@ Time: 284 ms, Memory: 12.00MB
 OK (2 tests, 3 assertions)
 ```
 
-# Test output from docker container
+## Test output from docker container
 ```
 $ docker-compose exec -T app ./vendor/bin/phpunit
 PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
